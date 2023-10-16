@@ -16,14 +16,25 @@ public class ProductRestController {
     private ProductService productService;
 
     @GetMapping("/productItems")
-    public List<Product> findAll() {
-        return productService.findAll();
+    public List<Product> findAll(@RequestParam(required = false) String productName) {
+        List<Product> products;
+
+        if(productName != null) {
+            products = productService.findByProductNameContaining(productName);
+        } else {
+            products = productService.findAll();
+        }
+        return products;
     }
 
-    @GetMapping("/productItems/{productId}")
+    @GetMapping("/productItems/{theId}")
     public Product findById(@PathVariable int theId) {
-        Product product = productService.findById(theId);
-        return product;
+        return productService.findById(theId);
+    }
+
+    @GetMapping("/productItems/category/{theCategory}")
+    public List<Product> findByCategory(@PathVariable String theCategory) {
+        return productService.findByProductCategory(theCategory);
     }
 
     @PostMapping("/productItems")
@@ -38,7 +49,7 @@ public class ProductRestController {
         return theProduct;
     }
 
-    @DeleteMapping("/productItems/{productId}")
+    @DeleteMapping("/productItems/{theId}")
     public String deleteProduct(@PathVariable int theId) {
         productService.deleteById(theId);
 

@@ -32,6 +32,16 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
+    @Override
+    public List<Product> findByProductCategory(String productCategory) {
+        return productRepository.findByProductCategory(productCategory);
+    }
+
+    @Override
+    public List<Product> findByProductNameContaining(String productName) {
+        return productRepository.findByProductNameContainingIgnoreCase(productName);
+    }
+
     /**
      * Separate methods to add a new product. This will force the save
      * of a new item in case a productId is passed in the Product object.

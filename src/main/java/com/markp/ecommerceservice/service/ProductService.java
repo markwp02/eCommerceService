@@ -10,6 +10,10 @@ public interface ProductService {
 
     public Product findById(int theId);
 
+    public List<Product> findByProductCategory(String productCategory);
+
+    public List<Product> findByProductNameContaining(String productName);
+
     public void add(Product theProduct);
 
     public void update(Product theProduct);
