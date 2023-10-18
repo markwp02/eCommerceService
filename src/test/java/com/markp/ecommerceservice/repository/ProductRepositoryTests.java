@@ -25,51 +25,51 @@ public class ProductRepositoryTests {
 
     List<Product> productList;
 
-    private final String productCategory1 = "Videogames";
-    private final String productCategory2 = "Laptops";
+    private final String PRODUCT_CATEGORY_1 = "Videogames";
+    private final String PRODUCT_CATEGORY_2 = "Laptops";
 
-    private final int targetProductId = 1;
+    private final int TARGET_PRODUCT_ID = 1;
 
-    private final String productName1 = "Microsoft Xbox Series X";
-    private final BigDecimal productPrice1 = BigDecimal.valueOf(749.99);
-    private final String productDescription1 = "Microsoft videogame console";
-    private final int productStock1 = 40;
+    private final String PRODUCT_NAME_1 = "Microsoft Xbox Series X";
+    private final BigDecimal PRODUCT_PRICE_1 = BigDecimal.valueOf(749.99);
+    private final String PRODUCT_DESCRIPTION_1 = "Microsoft videogame console";
+    private final int PRODUCT_STOCK_1 = 40;
 
-    private final String productName2 = "Sony Playstation 5";
-    private final BigDecimal productPrice2 = BigDecimal.valueOf(810.00);
-    private final String productDescription2 = "Sony videogames console";
-    private final int productStock2 = 9;
+    private final String PRODUCT_NAME_2 = "Sony Playstation 5";
+    private final BigDecimal PRODUCT_PRICE_2 = BigDecimal.valueOf(810.00);
+    private final String PRODUCT_DESCRIPTION_2 = "Sony videogames console";
+    private final int PRODUCT_STOCK_2 = 9;
 
-    private final String productName3 = "Microsoft Surface Laptop";
-    private final BigDecimal productPrice3 = BigDecimal.valueOf(1260.70);
-    private final String productDescription3 = "Microsoft Laptop computer";
-    private final int productStock3 = 13;
+    private final String PRODUCT_NAME_3 = "Microsoft Surface Laptop";
+    private final BigDecimal PRODUCT_PRICE_3 = BigDecimal.valueOf(1260.70);
+    private final String PRODUCT_DESCRIPTION_3 = "Microsoft Laptop computer";
+    private final int PRODUCT_STOCK_3 = 13;
 
     @BeforeAll
     public void setup() {
 
         Product product1 = Product.builder()
-                .productName(productName1)
-                .productPrice(productPrice1)
-                .productCategory(productCategory1)
-                .productDescription(productDescription1)
-                .productStock(productStock1)
+                .productName(PRODUCT_NAME_1)
+                .productPrice(PRODUCT_PRICE_1)
+                .productCategory(PRODUCT_CATEGORY_1)
+                .productDescription(PRODUCT_DESCRIPTION_1)
+                .productStock(PRODUCT_STOCK_1)
                 .build();
 
         Product product2 = Product.builder()
-                .productName(productName2)
-                .productPrice(productPrice2)
-                .productCategory(productCategory1)
-                .productDescription(productDescription2)
-                .productStock(productStock2)
+                .productName(PRODUCT_NAME_2)
+                .productPrice(PRODUCT_PRICE_2)
+                .productCategory(PRODUCT_CATEGORY_1)
+                .productDescription(PRODUCT_DESCRIPTION_2)
+                .productStock(PRODUCT_STOCK_2)
                 .build();
 
         Product product3 = Product.builder()
-                .productName(productName3)
-                .productPrice(productPrice3)
-                .productCategory(productCategory2)
-                .productDescription(productDescription3)
-                .productStock(productStock3)
+                .productName(PRODUCT_NAME_3)
+                .productPrice(PRODUCT_PRICE_3)
+                .productCategory(PRODUCT_CATEGORY_2)
+                .productDescription(PRODUCT_DESCRIPTION_3)
+                .productStock(PRODUCT_STOCK_3)
                 .build();
 
         productList = new ArrayList<>(Arrays.asList(product1, product2, product3));
@@ -90,8 +90,8 @@ public class ProductRepositoryTests {
     @Order(2)
     public void getRestaurantTest() {
 
-        Product product = productRepository.findById(targetProductId).get();
-        Assertions.assertThat(product.getProductId()).isEqualTo(targetProductId);
+        Product product = productRepository.findById(TARGET_PRODUCT_ID).get();
+        Assertions.assertThat(product.getProductId()).isEqualTo(TARGET_PRODUCT_ID);
     }
 
     @Test
@@ -106,10 +106,10 @@ public class ProductRepositoryTests {
     @Order(4)
     public void getListOfProductsCategoryTest() {
 
-        List<Product> databaseProducts = productRepository.findByProductCategory(productCategory1);
+        List<Product> databaseProducts = productRepository.findByProductCategory(PRODUCT_CATEGORY_1);
         List<Product> videoGamesList = productList
                 .stream()
-                .filter(product -> product.getProductCategory().equals(productCategory1))
+                .filter(product -> product.getProductCategory().equals(PRODUCT_CATEGORY_1))
                 .collect(Collectors.toList());
 
         Assertions.assertThat(databaseProducts.size()).isEqualTo(videoGamesList.size());
@@ -138,7 +138,7 @@ public class ProductRepositoryTests {
         String updatedProductName = "Xbox Series S";
         BigDecimal updatedProductPrice = BigDecimal.valueOf(549.00);
 
-        Product product = productRepository.findById(targetProductId).get();
+        Product product = productRepository.findById(TARGET_PRODUCT_ID).get();
         product.setProductName(updatedProductName);
         product.setProductPrice(updatedProductPrice);
 
@@ -152,9 +152,9 @@ public class ProductRepositoryTests {
     @Rollback(value = false)
     public void deleteProductTest() {
 
-        productRepository.deleteById(targetProductId);
+        productRepository.deleteById(TARGET_PRODUCT_ID);
 
-        Optional<Product> optionalProduct = productRepository.findById(targetProductId);
+        Optional<Product> optionalProduct = productRepository.findById(TARGET_PRODUCT_ID);
 
         Product product = null;
         if(optionalProduct.isPresent()) {
