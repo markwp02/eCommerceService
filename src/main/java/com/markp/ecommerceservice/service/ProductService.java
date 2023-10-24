@@ -14,6 +14,8 @@ public interface ProductService {
 
     public List<Product> findByProductNameContaining(String productName);
 
+    public List<String> findProductCategories();
+
     public void add(Product theProduct);
 
     public void update(Product theProduct);

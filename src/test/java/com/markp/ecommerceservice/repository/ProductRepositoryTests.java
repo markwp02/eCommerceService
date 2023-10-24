@@ -117,6 +117,22 @@ public class ProductRepositoryTests {
 
     @Test
     @Order(5)
+    public void getListOfCategoriesTest() {
+
+        List<String> databaseCategories = productRepository.findProductCategories();
+
+        List<String> productCategories = productList
+                .stream()
+                .map(Product::getProductCategory)
+                .distinct()
+                .collect(Collectors.toList());
+
+        Assertions.assertThat(databaseCategories).containsAll(productCategories);
+        Assertions.assertThat(productCategories).containsAll(databaseCategories);
+    }
+
+    @Test
+    @Order(6)
     public void getListOfProductsSearch() {
 
         String searchTerm = "microsoft";
@@ -131,7 +147,7 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     @Rollback(value = false)
     public void updateProductTest() {
 
@@ -148,7 +164,7 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     @Rollback(value = false)
     public void deleteProductTest() {
 

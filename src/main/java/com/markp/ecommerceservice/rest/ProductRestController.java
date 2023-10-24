@@ -37,6 +37,11 @@ public class ProductRestController {
         return productService.findByProductCategory(theCategory);
     }
 
+    @GetMapping("/productItems/category")
+    public List<String> findProductCategories() {
+        return productService.findProductCategories();
+    }
+
     @PostMapping("/productItems")
     public Product addProduct(@RequestBody Product theProduct) {
         productService.add(theProduct);
