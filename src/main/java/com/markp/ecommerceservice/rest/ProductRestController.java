@@ -32,12 +32,20 @@ public class ProductRestController {
         return productService.findById(theId);
     }
 
-    @GetMapping("/productItems/category/{theCategory}")
-    public List<Product> findByCategory(@PathVariable String theCategory) {
-        return productService.findByProductCategory(theCategory);
+    @GetMapping("/productItems/category")
+    public List<Product> findByCategory(@RequestParam(required = false) String category) {
+        List<Product> products;
+
+        if(category != null && !category.isEmpty()) {
+            products = productService.findByProductCategory(category);
+        } else {
+            products = productService.findAll();
+        }
+
+        return products;
     }
 
-    @GetMapping("/productItems/category")
+    @GetMapping("/productCategories")
     public List<String> findProductCategories() {
         return productService.findProductCategories();
     }
