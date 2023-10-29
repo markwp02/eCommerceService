@@ -35,4 +35,7 @@ public class Product {
 
     @Column(name="product_stock")
     private int productStock;
+
+    @Column(name="product_url")
+    private String productUrl;
 }
