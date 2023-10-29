@@ -10,6 +10,6 @@ product_category VARCHAR(50) NOT NULL,
 product_description VARCHAR(200) NOT NULL,
 product_price NUMERIC(20, 2),
 product_stock INT NOT NULL,
-product_url VARCHAR(300)
+product_image_url VARCHAR(300)
 );
 ```
