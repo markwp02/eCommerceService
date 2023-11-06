@@ -38,4 +38,30 @@ public class Product {
 
     @Column(name="product_image_url")
     private String productImageUrl;
+
+    public boolean removeProductStock(int stockToRemove) {
+        int newStock = productStock - stockToRemove;
+        boolean result;
+
+        if(newStock >= 0 && stockToRemove > 0) {
+            productStock = newStock;
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean returnStock(int stockToReturn) {
+        int newStock = productStock + stockToReturn;
+        boolean result;
+
+        if(stockToReturn > 0) {
+            productStock = newStock;
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
 }

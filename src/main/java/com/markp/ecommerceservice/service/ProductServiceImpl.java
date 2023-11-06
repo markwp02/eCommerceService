@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteById(int theId) {
         Optional<Product> result = productRepository.findById(theId);
 
-        if(!result.isPresent()) {
+        if(result.isEmpty()) {
             throw new RuntimeException("Product not found - " + theId);
         } else {
             productRepository.deleteById(theId);
