@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS CUSTOMER_ORDER;
 CREATE TABLE CUSTOMER_ORDER(
 customer_order_id INT AUTO_INCREMENT PRIMARY KEY,
 customer_order_total_price NUMERIC(20, 2) NOT NULL,
-order_status_id INT NOT NULL,
+order_status_id INT,
 FOREIGN KEY (order_status_id) REFERENCES ORDER_STATUS(order_status_id)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE ORDER_PRODUCT(
 order_product_id INT AUTO_INCREMENT PRIMARY KEY,
 order_product_quantity INT NOT NULL,
 product_id INT NOT NULL,
-customer_order_id INT NOT NULL,
+customer_order_id INT,
 FOREIGN KEY (product_id) REFERENCES PRODUCT(product_id),
 FOREIGN KEY (customer_order_id) REFERENCES CUSTOMER_ORDER(customer_order_id)
 );

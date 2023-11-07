@@ -1,6 +1,8 @@
 package com.markp.ecommerceservice.service;
 
 import com.markp.ecommerceservice.entity.CustomerOrder;
+import com.markp.ecommerceservice.entity.OrderProduct;
+import com.markp.ecommerceservice.entity.Product;
 import com.markp.ecommerceservice.repository.CustomerOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,19 +44,21 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
      * Separate methods to add a new customer order. Setting the primary key
      * customerOrderId to 0 will force the save of a new item in case a
      * customerOrderId is passed in the CustomerOrder object.
+     *
+     * As join between OrderProduct and Product has a CascadeType of Merge, only
+     * an update database operation will change the product stock.
      * @param theCustomerOrder
      */
     @Override
     public void add(CustomerOrder theCustomerOrder) {
-        boolean updateStockListResult = theCustomerOrder.updateProductStockList();
-
-        int confirmedId = 1;
-        int rejectedId = 5;
-        int statusId = updateStockListResult ? confirmedId : rejectedId;
-        theCustomerOrder.setOrderStatus(orderStatusService.findById(statusId));
-
         theCustomerOrder.setCustomerOrderId(0);
         customerOrderRepository.save(theCustomerOrder);
+
+        boolean updateStockListResult = theCustomerOrder.updateProductStockList();
+
+        setOrderStatus(theCustomerOrder, updateStockListResult);
+
+        update(theCustomerOrder);
     }
 
     @Override
@@ -71,5 +75,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         } else {
             customerOrderRepository.deleteById(theId);
         }
+    }
+
+    private void setOrderStatus(CustomerOrder theCustomerOrder, boolean success) {
+        int confirmedId = 1;
+        int rejectedId = 5;
+        int statusId = success ? confirmedId : rejectedId;
+        theCustomerOrder.setOrderStatus(orderStatusService.findById(statusId));
     }
 }

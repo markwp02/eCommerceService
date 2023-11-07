@@ -35,6 +35,7 @@ public class CustomerOrder {
     private OrderStatus orderStatus;
 
     public boolean updateProductStockList() {
+        List<OrderProduct> successOrderProducts = new ArrayList<>();
         List<OrderProduct> failureOrderProducts = new ArrayList<>();
         boolean productStockResult;
         boolean productStockListResult = true;
@@ -44,11 +45,13 @@ public class CustomerOrder {
             if(!productStockResult) {
                 failureOrderProducts.add(orderProduct);
                 productStockListResult = false;
+            } else {
+                successOrderProducts.add(orderProduct);
             }
         }
 
         if(failureOrderProducts.size() > 0) {
-            rollbackProductStockList(failureOrderProducts);
+            rollbackProductStockList(successOrderProducts);
         }
         return productStockListResult;
     }
