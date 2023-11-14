@@ -1,6 +1,7 @@
 package com.markp.ecommerceservice.rest;
 
 import com.markp.ecommerceservice.entity.CustomerOrder;
+import com.markp.ecommerceservice.entity.Product;
 import com.markp.ecommerceservice.service.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,5 +29,17 @@ public class CustomerOrderRestController {
     public CustomerOrder addCustomerOrder(@RequestBody CustomerOrder customerOrder) {
         customerOrderService.add(customerOrder);
         return customerOrder;
+    }
+
+    @PutMapping("/customerOrders")
+    public CustomerOrder updateCustomerOrder(@RequestBody CustomerOrder theCustomerOrder) {
+        customerOrderService.update(theCustomerOrder);
+        return theCustomerOrder;
+    }
+
+    @DeleteMapping("/customerOrders/{theId}")
+    public String deleteProduct(@PathVariable int theId) {
+        customerOrderService.deleteById(theId);
+        return "Deleted customer order id - " + theId;
     }
 }
