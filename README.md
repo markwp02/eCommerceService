@@ -43,7 +43,6 @@ FOREIGN KEY (product_id) REFERENCES PRODUCT(product_id),
 FOREIGN KEY (customer_order_id) REFERENCES CUSTOMER_ORDER(customer_order_id)
 );
 
-TODO: Replace customer table with Auth2 login
 DROP TABLE IF EXISTS CUSTOMER;
 CREATE TABLE CUSTOMER(
 customer_id INT AUTO_INCREMENT PRIMARY KEY,

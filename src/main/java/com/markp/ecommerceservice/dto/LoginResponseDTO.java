@@ -1,9 +1,9 @@
-package com.markp.ecommerceservice.entity;
+package com.markp.ecommerceservice.dto;
 
 import lombok.Data;
 
 @Data
-public class LoginResponse {
+public class LoginResponseDTO {
 
     private int customerId;
     private String customerUsername;
@@ -13,7 +13,7 @@ public class LoginResponse {
 
     String errorMessage;
 
-    public LoginResponse(int customerId, String customerUsername, String customerFirstName, String customerLastName, String customerEmail) {
+    public LoginResponseDTO(int customerId, String customerUsername, String customerFirstName, String customerLastName, String customerEmail) {
         this.customerId = customerId;
         this.customerUsername = customerUsername;
         this.customerFirstName = customerFirstName;
@@ -21,7 +21,7 @@ public class LoginResponse {
         this.customerEmail = customerEmail;
     }
 
-    public LoginResponse(String errorMessage) {
+    public LoginResponseDTO(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 }
